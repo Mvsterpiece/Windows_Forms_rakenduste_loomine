@@ -24,13 +24,13 @@ namespace Windows_Forms_rakenduste_loomine
         ColorDialog colordialog;
         OpenFileDialog openfiledialog;
         FlowLayoutPanel flowlayoutpanel;
-
+        MathQuiz mathQuiz;
 
         public MinuVorm()
         {
             Text = "Minu oma vorm koos elementidega"; //название формы
             puu = new TreeView();
-            puu.Dock = DockStyle.Left;
+            puu.Dock = DockStyle.Right;
             puu.Location = new Point(0, 0);
             TreeNode oksad = new TreeNode("Elemendid");
             oksad.Nodes.Add(new TreeNode("Pildid"));
