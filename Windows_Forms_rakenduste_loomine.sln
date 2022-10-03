@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows_Forms_rakenduste_loomine", "Windows_Forms_rakenduste_loomine\Windows_Forms_rakenduste_loomine.csproj", "{0CDD9FF0-3D87-495E-BE5E-A6F8F65D034B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0CDD9FF0-3D87-495E-BE5E-A6F8F65D034B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CDD9FF0-3D87-495E-BE5E-A6F8F65D034B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CDD9FF0-3D87-495E-BE5E-A6F8F65D034B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CDD9FF0-3D87-495E-BE5E-A6F8F65D034B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F7007E1B-1BF2-46A8-8575-C0E3F5DC0310}
+	EndGlobalSection
+EndGlobal
