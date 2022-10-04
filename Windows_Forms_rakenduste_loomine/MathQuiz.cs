@@ -89,7 +89,6 @@ namespace Windows_Forms_rakenduste_loomine
                 }
             }
 
-
             this.Controls.Add(start);
             this.Controls.Add(label);
             this.Controls.Add(label2);
@@ -98,8 +97,8 @@ namespace Windows_Forms_rakenduste_loomine
         public void Start_Click(object sender, EventArgs e)
         {
             Label l;
-            Button b = (sender as Button);
-            b.Enabled = false;
+            Button nupp = (sender as Button);
+            nupp.Enabled = false;
             Random rnd = new Random();
             for (int j = 1; j < 5; j++)
             {
@@ -140,8 +139,21 @@ namespace Windows_Forms_rakenduste_loomine
                     }
                 }
             }
+            TimerStart();
         }
         int tik = 0;
+        private async void TimerStart()
+        {
+            int time = 60;
+            while (time != 0)
+            {
+                l.Text = time.ToString() + " seconds";
+                time -= 1;
+                await Task.Delay(1000);
+            }
+            l.Text = "";
+            this.Enabled = false;
+        }
         private void Timer_Tick(object sender, EventArgs e)
         {
             tik++;
