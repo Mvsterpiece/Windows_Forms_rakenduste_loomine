@@ -28,6 +28,8 @@ namespace Windows_Forms_rakenduste_loomine
 
         public MinuVorm()
         {
+            Height = 400;
+            Width = 300;
             Text = "Minu oma vorm koos elementidega"; //название формы
             puu = new TreeView();
             puu.Dock = DockStyle.Right;
@@ -40,6 +42,7 @@ namespace Windows_Forms_rakenduste_loomine
             puu.AfterSelect += Puu_AfterSelect;
             puu.Nodes.Add(oksad);
             this.Controls.Add(puu);
+
         }
 
         private void Puu_AfterSelect(object sender, TreeViewEventArgs e)

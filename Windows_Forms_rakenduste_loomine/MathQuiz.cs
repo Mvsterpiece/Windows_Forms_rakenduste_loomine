@@ -17,9 +17,9 @@ namespace Windows_Forms_rakenduste_loomine
         Label label;
         Label label2;
         Label l;
-        Label timeLabel;
         Button start;
         NumericUpDown numb;
+
 
 
         string[] tehed = new string[4] { "+", "-", "*", "/" };
@@ -37,7 +37,7 @@ namespace Windows_Forms_rakenduste_loomine
             {
 
                 Dock = DockStyle.Fill,
-                ColumnStyles = { new ColumnStyle(SizeType.Percent, 85), new ColumnStyle(SizeType.Percent, 15) },
+                ColumnStyles = { new ColumnStyle(SizeType.Percent, 20)},
                 RowStyles = { new RowStyle(SizeType.Percent, 90), new RowStyle(SizeType.Percent, 10) },
                 BorderStyle = BorderStyle.Fixed3D,
                 AutoSize = false,
@@ -48,32 +48,33 @@ namespace Windows_Forms_rakenduste_loomine
             Button button = new Button { Text = "Math Quiz", Location = new Point(200, 50), BackColor = Color.Blue };
             Label label = new Label { Text = "Time Left", AutoSize = true, };
             label.Location = new Point(15, 15);
-            Label label2 = new Label { BorderStyle = BorderStyle.FixedSingle, AutoSize = false, };
+            Label label2 = new Label { BorderStyle = BorderStyle.FixedSingle, AutoSize = true, };
             label2.Location = new Point(80, 12);
             Button start = new Button { Text = "Start", Location = new Point(200, 12), };
             start.Click += Start_Click;
 
 
-            string[] names = { "rowNum", "rowSign", "rowNums", "rowEquals", "RowResult" };
-            string[] text = { "?", "+", "-", "*", "/", "=" };
-            for (int j = 1; j < 5; j++)
+            string[] names = {"rowSign", "rowNums", "rowEquals"};
+            string[] text = {"+", "-", "*", "/"};
+            for (int j = 0; j < 5; j++)
             {
-                for (int i = 1; i < 6; i++)
+                for (int i = 0; i < 5; i++)
                 {
-                    if (i == 5)
+                    if (i == 5 && j>0)
                     {
                         numb = new NumericUpDown
                         {
                             Width = 100,
                             Name = "sum" + j,
                         };
-                        table.Controls.Add(numb);
-                        table.SetCellPosition(numb, new TableLayoutPanelCellPosition(i - 1, j));
+                        table.Controls.Add(numb,i,j);
+                        //table.SetCellPosition(numb, new TableLayoutPanelCellPosition(i - 1, j));
                     }
                     else
                     {
                         var lblText = text[0];
                         if (names[i - 1] == "rowSign") lblText = text[j];
+
                         else if (names[i - 1] == "rowEquals") lblText = text.Last();
                         l = new Label
                         {
@@ -144,7 +145,7 @@ namespace Windows_Forms_rakenduste_loomine
         int tik = 0;
         private async void TimerStart()
         {
-            int time = 60;
+            int time = 30;
             while (time != 0)
             {
                 l.Text = time.ToString() + " seconds";
@@ -157,11 +158,10 @@ namespace Windows_Forms_rakenduste_loomine
         private void Timer_Tick(object sender, EventArgs e)
         {
             tik++;
-            timeLabel.Text = tik.ToString();
-            timeLabel.Location = new Point(300, 300);
-            this.Controls.Add(timeLabel);
+            label2.Text = tik.ToString();
+            label2.Location = new Point(300, 300);
+            this.Controls.Add(label2);
         }
-
 
     }
 }
