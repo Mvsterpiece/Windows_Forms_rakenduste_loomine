@@ -16,7 +16,7 @@ namespace Windows_Forms_rakenduste_loomine
         Label firstClicked = null;
         Label secondClicked = null;
         Timer timer1 = new Timer { Interval = 750 };
-        List<string> icons = new List<string>() //список значений которые потом будут появлятся
+        List<string> icons = new List<string>() //väärtuste loend, mis ilmuvad hiljem
         {
             "m", "m", "k", "k", "N", "N", "t", "t",
             "Z", "Z", "J", "J", "E", "E", "S", "S"
@@ -74,7 +74,7 @@ namespace Windows_Forms_rakenduste_loomine
         }
 
 
-        private void Click(object sender, EventArgs e) //функция клика на label, чтобы там появился значок
+        private void Click(object sender, EventArgs e) //ikooni kuvamiseks
         {
             if (timer1.Enabled == true)
                 return;
@@ -98,7 +98,7 @@ namespace Windows_Forms_rakenduste_loomine
                 timer1.Start();
             }
         }
-        private void Tick(object sender, EventArgs e) //фукнция таймера
+        private void Tick(object sender, EventArgs e) //taimeri funktsioon
         {
 
             if (firstClicked.Text == secondClicked.Text)
@@ -116,7 +116,7 @@ namespace Windows_Forms_rakenduste_loomine
             timer1.Stop();
             Kontroll();
         }
-        private void Kontroll() //функция проверки 
+        private void Kontroll() //kontrolli funktsioon
         {
             foreach (Control control in table.Controls)
             {
