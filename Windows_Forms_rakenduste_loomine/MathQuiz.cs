@@ -10,157 +10,346 @@ namespace Windows_Forms_rakenduste_loomine
 {
     public class MathQuiz : MinuVorm
     {
+        public event EventHandler Tick;
+        Random rnd = new Random();
+        string[] Maths = { "Lisa", "Lahuta", "Korruta" };
+        int total1, total2, total3, total4, score, correct;
+        private int counter = 60;
+        private Timer timer1;
+        private Label lblScore;
+        private Label lblTimer, lblSym1, lblSym2, lblSym3, lblSym4, lblNumB1, lblNumB2, lblNumB3, lblNumB4, lblE1, lblE2, lblE3, lblE4, lblAnswer, lblNumA1, lblNumA2, lblNumA3, lblNumA4;
+        private TextBox Answer1, Answer2, Answer3, Answer4;
+        private Button button1, buttonTimer;
+        Label[] labelSymArray = { }, lblNumArrayA = { }, lblNumArrayB = { }, lblEqualsArray = { };
+        TextBox[] AnswerArray = { };
+        int[] totalArray = { };
 
         TableLayoutPanel table;
-        string text;
-        string title;
-        Label label;
-        Label label2;
-        Label l;
-        Button start;
-        NumericUpDown numb;
 
-
-
-        string[] tehed = new string[4] { "+", "-", "*", "/" };
         public MathQuiz(string title)
         {
-            Text = "Math Quiz";
-            Size = new Size(500, 400);
-            FormBorderStyle = FormBorderStyle.Fixed3D;
-            MaximizeBox = false;
-            table = new TableLayoutPanel
-            {
-                Dock = DockStyle.Fill
-            };
-            table = new TableLayoutPanel
-            {
+            StartGame();
+        }
+        internal void StartGame() //funktsioon kuvab menüü eraldi aknas, mis kirjutati tagasi MinuVormis
+        {
+            SuspendLayout();
+            ClientSize = new Size(450, 400);
+            Name = "MathQuiz";
+            Text = "Maths Quiz";
+            ResumeLayout(false);
+            PerformLayout();
+            lblNumArrayA = new Label[] { lblNumA1, lblNumA2, lblNumA3, lblNumA4 };
+            lblNumArrayB = new Label[] { lblNumB1, lblNumB2, lblNumB3, lblNumB4 };
+            lblEqualsArray = new Label[] { lblE1, lblE2, lblE3, lblE4 };
+            AnswerArray = new TextBox[] { Answer1, Answer2, Answer3, Answer4 };
+            totalArray = new int[] { total1, total2, total3, total4 };
+            labelSymArray = new Label[] { lblSym1, lblSym2, lblSym3, lblSym4 };
 
+            int i = 0;
+
+
+            table = new TableLayoutPanel //Kogu tabeli loomine, milles asuvad tulevikus kõik sildid, nupud jne
+            {
+                ColumnCount = 5,
+                RowCount = 5,
+                Size = new Size(310, 280),
+                TabIndex = 0,
+                Name = "table1",
                 Dock = DockStyle.Fill,
-                ColumnStyles = { new ColumnStyle(SizeType.Percent, 20)},
-                RowStyles = { new RowStyle(SizeType.Percent, 90), new RowStyle(SizeType.Percent, 10) },
-                BorderStyle = BorderStyle.Fixed3D,
-                AutoSize = false,
-
-
+                Location = new Point(0, 0),
             };
 
-            Button button = new Button { Text = "Math Quiz", Location = new Point(200, 50), BackColor = Color.Blue };
-            Label label = new Label { Text = "Time Left", AutoSize = true, };
-            label.Location = new Point(15, 15);
-            Label label2 = new Label { BorderStyle = BorderStyle.FixedSingle, AutoSize = true, };
-            label2.Location = new Point(80, 12);
-            Button start = new Button { Text = "Start", Location = new Point(200, 12), };
-            start.Click += Start_Click;
-
-
-            string[] names = {"rowSign", "rowNums", "rowEquals"};
-            string[] text = {"+", "-", "*", "/"};
-            for (int j = 0; j < 5; j++)
+            lblScore = new Label //sildi "Score" loomine, mis näitab punkte õigesti vastatud 4 näite eest
             {
-                for (int i = 0; i < 5; i++)
-                {
-                    if (i == 5 && j>0)
-                    {
-                        numb = new NumericUpDown
-                        {
-                            Width = 100,
-                            Name = "sum" + j,
-                        };
-                        table.Controls.Add(numb,i,j);
-                        //table.SetCellPosition(numb, new TableLayoutPanelCellPosition(i - 1, j));
-                    }
-                    else
-                    {
-                        var lblText = text[0];
-                        if (names[i - 1] == "rowSign") lblText = text[j];
+                AutoSize = true,
+                ForeColor = Color.Maroon,
+                Location = new Point(10, 10),
+                Name = "lblScore",
+                Size = new Size(50, 15),
+                TabIndex = 0,
+                Text = "Punktid: 0",
+            };
 
-                        else if (names[i - 1] == "rowEquals") lblText = text.Last();
-                        l = new Label
-                        {
-                            Text = lblText,
-                            AutoSize = false,
-                            Size = new Size(60, 50),
-                            TextAlign = ContentAlignment.MiddleCenter,
-                            Name = names[i - 1] + j,
-                        };
-                        table.Controls.Add(l);
-                        table.SetCellPosition(l, new TableLayoutPanelCellPosition(i - 1, j));
-                    }
+            foreach (Label sym in lblNumArrayA) //silt, mis näitab enne mängu algust nulli numbrit
+            {
+                lblNumArrayA[i] = new Label
+                {
+                    AutoSize = true,
+                    Font = new Font("Microsoft Sans Serif", 20F, FontStyle.Bold, GraphicsUnit.Point, 200),
+                    Name = "lblNumA",
+                    Size = new Size(50, 35),
+                    TabIndex = 1,
+                    Text = "00",
+                };
+                i++;
+            }
+            i = 0;
+
+            foreach (Label sym in labelSymArray) //silt, mis näitab matemaatilist märki
+            {
+                labelSymArray[i] = new Label
+                {
+                    AutoSize = true,
+                    Font = new Font("Microsoft Sans Serif", 20F, FontStyle.Bold, GraphicsUnit.Point, 200),
+                    Name = "lblSymbol",
+                    Size = new Size(35, 35),
+                    TabIndex = 2,
+                    Text = "+",
+                };
+                i++;
+            }
+            i = 0;
+
+            foreach (Label sym in lblNumArrayB) //silt, mis näitab enne mängu algust nulli numbrit
+            {
+                lblNumArrayB[i] = new Label
+                {
+                    AutoSize = true,
+                    Font = new Font("Microsoft Sans Serif", 20F, FontStyle.Bold, GraphicsUnit.Point, 200),
+                    Name = "lblNumB",
+                    Size = new Size(50, 35),
+                    TabIndex = 3,
+                    Text = "00"
+                };
+                i++;
+            }
+            i = 0;
+
+            foreach (Label sym in lblEqualsArray) //silt, mis näitab matemaatilist märki
+            {
+                lblEqualsArray[i] = new Label
+                {
+                    AutoSize = true,
+                    Font = new Font("Microsoft Sans Serif", 20F, FontStyle.Bold, GraphicsUnit.Point, 200),
+                    Name = "label4",
+                    Size = new Size(35, 35),
+                    TabIndex = 4,
+                    Text = "="
+                };
+                i++;
+            }
+            i = 0;
+
+            lblAnswer = new Label //sildi loomine vastuste sisestamiseks
+            {
+                AutoSize = true,
+                Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point, 200),
+                ForeColor = Color.Green,
+                Name = "lblAnswer",
+                Size = new Size(50, 15),
+                TabIndex = 5,
+                Text = "",
+            };
+
+            foreach (TextBox sym in AnswerArray) //tekstikast, mis aktsepteerib vastuseid
+            {
+                AnswerArray[i] = new TextBox
+                {
+                    Font = new Font("Microsoft Sans Serif", 20F, FontStyle.Regular, GraphicsUnit.Point, 200),
+                    Multiline = true,
+                    Name = "txtAnswer",
+                    Size = new Size(80, 35),
+                    TabIndex = 6,
+                };
+                i++;
+            }
+            i = 0;
+
+            button1 = new Button //nupu Kontroll loomine, mis toimib vastuste õigsuse kontrollina.
+            {
+                Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 200),
+                Location = new Point(290, 40),
+                Name = "button1",
+                Size = new Size(75, 35),
+                TabIndex = 7,
+                Text = "Kontrolli",
+                UseVisualStyleBackColor = true,
+                Enabled = false,
+            };
+
+            buttonTimer = new Button //taimeri nupu loomine, vajutamisel kuvatakse näited ja algab aja lugemine
+            {
+                Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 200),
+                Location = new Point(290, 40),
+                Name = "button1",
+                Size = new Size(75, 35),
+                TabIndex = 7,
+                Text = "Alusta",
+                UseVisualStyleBackColor = true,
+            };
+
+            lblTimer = new Label //sildi loomine, milles kuvatakse taimerit, on sildil algselt enne alusta nupu vajutamist tekst "--:--:--"
+            {
+                AutoSize = true,
+                Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point, 200),
+                Name = "lblAnswer",
+                Size = new Size(50, 15),
+                TabIndex = 5,
+                Text = "--:--:--",
+            };
+            timer1 = new Timer
+            {
+                Interval = 1000
+            };
+
+            //kõigi siltide, nuppude jms kuvamine laual
+
+            Controls.Add(table);
+
+            timer1.Tick += timer1_Tick;
+            buttonTimer.Click += ButtonTimer_Click;
+            AnswerArray[0].TextChanged += new EventHandler(CheckAnswer);
+            AnswerArray[1].TextChanged += new EventHandler(CheckAnswer);
+            AnswerArray[2].TextChanged += new EventHandler(CheckAnswer);
+            AnswerArray[3].TextChanged += new EventHandler(CheckAnswer);
+            button1.Click += new EventHandler(CheckButtonClickEvent);
+            table.Controls.Add(lblNumArrayA[0], 0, 0);
+            table.Controls.Add(lblNumArrayA[1], 0, 1);
+            table.Controls.Add(lblNumArrayA[2], 0, 2);
+            table.Controls.Add(lblNumArrayA[3], 0, 3);
+            table.Controls.Add(labelSymArray[0], 1, 0);
+            table.Controls.Add(labelSymArray[1], 1, 1);
+            table.Controls.Add(labelSymArray[2], 1, 2);
+            table.Controls.Add(labelSymArray[3], 1, 3);
+            table.Controls.Add(lblNumArrayB[0], 1, 0);
+            table.Controls.Add(lblNumArrayB[1], 1, 1);
+            table.Controls.Add(lblNumArrayB[2], 1, 2);
+            table.Controls.Add(lblNumArrayB[3], 1, 3);
+            table.Controls.Add(AnswerArray[0], 4, 0);
+            table.Controls.Add(AnswerArray[1], 4, 1);
+            table.Controls.Add(AnswerArray[2], 4, 2);
+            table.Controls.Add(AnswerArray[3], 4, 3);
+            table.Controls.Add(lblEqualsArray[0], 3, 0);
+            table.Controls.Add(lblEqualsArray[1], 3, 1);
+            table.Controls.Add(lblEqualsArray[2], 3, 2);
+            table.Controls.Add(lblEqualsArray[3], 3, 3);
+            table.Controls.Add(lblAnswer, 4, 4);
+            table.Controls.Add(lblScore, 4, 4);
+            table.Controls.Add(button1, 4, 4);
+            table.Controls.Add(buttonTimer, 4, 5);
+            table.Controls.Add(lblTimer);
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e) //taimeri funktsioon, mis aktiveeritakse nupuga ja pärast aja möödumist, kui inimene ei vastanud, annab vastuse
+        {
+            if (counter > 0)
+            {
+                counter = counter - 1;
+                lblTimer.Text = counter + " sekundit";
+            }
+            else
+            {
+                timer1.Stop();
+                lblTimer.Text = "See on kõik, rohkem aega ei anna!";
+                foreach (var item in AnswerArray)
+                {
+                    item.Enabled = false;
                 }
             }
-
-            this.Controls.Add(start);
-            this.Controls.Add(label);
-            this.Controls.Add(label2);
-            this.Controls.Add(table);
         }
-        public void Start_Click(object sender, EventArgs e)
+        private void ButtonTimer_Click(object sender, EventArgs e) //nupufunktsioon, mis käivitab taimeri
         {
-            Label l;
-            Button nupp = (sender as Button);
-            nupp.Enabled = false;
-            Random rnd = new Random();
-            for (int j = 1; j < 5; j++)
+            Game();
+            buttonTimer.Enabled = true;
+            button1.Enabled = true;
+
+            timer1.Start();
+        }
+
+        private void CheckAnswer(object sender, EventArgs e) //vastuste kontrollimise funktsioon
+        {
+            for (int i = 0; i < 4; i++)
             {
-                for (int i = 0; i < 3; i += 2)
+                if (System.Text.RegularExpressions.Regex.IsMatch(AnswerArray[i].Text, "[^0-9]"))
                 {
-                    if (j == 2)
-                    {
-                        int a = 1, c = 2;
-                        while (a < c)
-                        {
-                            a = rnd.Next(1, 12);
-                            c = rnd.Next(1, 12);
-                        }
-                        l = (Label)table.GetControlFromPosition(i, j);
-                        l.Text = a.ToString();
-
-                        l = (Label)table.GetControlFromPosition(i + 2, j);
-                        l.Text = c.ToString();
-                        break;
-                    }
-                    else if (j == 4)
-                    {
-                        int a, c;
-                        a = rnd.Next(1, 12);
-                        c = rnd.Next(1, 12);
-
-                        l = (Label)table.GetControlFromPosition(i, j);
-                        l.Text = (a * c).ToString();
-
-                        l = (Label)table.GetControlFromPosition(i + 2, j);
-                        l.Text = c.ToString();
-                        break;
-                    }
-                    else
-                    {
-                        l = (Label)table.GetControlFromPosition(i, j);
-                        l.Text = rnd.Next(0, 101).ToString();
-                    }
+                    MessageBox.Show("Ainult numbrid!");
+                    AnswerArray[i].Text = AnswerArray[i].Text.Remove(AnswerArray[i].Text.Length - 1);
                 }
             }
-            TimerStart();
         }
-        int tik = 0;
-        private async void TimerStart()
+
+        private void CheckButtonClickEvent(object sender, EventArgs e) //vastuste kontrollimise funktsioon, sisestamata andmete korral keeldub kontrollimast või lõpetab
         {
-            int time = 30;
-            while (time != 0)
+
+            for (int i = 0; i < 4; i++)
             {
-                l.Text = time.ToString() + " seconds";
-                time -= 1;
-                await Task.Delay(1000);
+                int userEntered = 0;
+                try
+                {
+                    userEntered = Convert.ToInt32(AnswerArray[i].Text);
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Sa pead kõik vastata!");
+                }
+
+                if (userEntered == totalArray[i])
+                {
+                    correct += 1;
+                }
+                else
+                {
+                }
+
             }
-            l.Text = "";
-            this.Enabled = false;
+
+            if (correct >= 4)
+            {
+                lblAnswer.Text = "Õige!";
+                lblAnswer.ForeColor = Color.Green;
+                score += 1;
+                lblScore.Text = "Punktid: " + score;
+                Game();
+            }
+            else
+            {
+                lblAnswer.Text = "Vale!";
+                lblAnswer.ForeColor = Color.Red;
+            }
+            correct = 0;
         }
-        private void Timer_Tick(object sender, EventArgs e)
+
+        private void Game() //funktsioon mängu alustamiseks, mis alguses määrab juhuslikud numbrid ja ka märgid
         {
-            tik++;
-            label2.Text = tik.ToString();
-            label2.Location = new Point(300, 300);
-            this.Controls.Add(label2);
+            for (int ii = 0; ii < 4; ii++)
+            {
+
+                int numA = rnd.Next(10, 20);
+                int numB = rnd.Next(0, 9);
+
+                AnswerArray[ii].Text = null;
+
+
+                string Tsym = "";
+                Color colorSym = Color.Black;
+                switch (Maths[rnd.Next(0, Maths.Length)])
+                {
+                    case "Lisa":
+                        totalArray[ii] = numA + numB;
+                        Tsym = "+";
+                        colorSym = Color.Green;
+                        break;
+
+                    case "Lahuta":
+                        totalArray[ii] = numA - numB;
+                        Tsym = "-";
+                        colorSym = Color.Maroon;
+                        break;
+
+                    case "Korruta":
+                        totalArray[ii] = numA * numB;
+                        Tsym = "x";
+                        colorSym = Color.Purple;
+                        break;
+                }
+                labelSymArray[ii].Text = Tsym;
+
+
+                lblNumArrayA[ii].Text = numA.ToString();
+                lblNumArrayB[ii].Text = numB.ToString();
+
+            }
         }
 
     }
