@@ -72,7 +72,7 @@ namespace Windows_Forms_rakenduste_loomine
                 this.Controls.Add(tableLayoutPanel);
 
 
-                pictureBox = new System.Windows.Forms.PictureBox
+                pictureBox = new System.Windows.Forms.PictureBox //создание рамки в которой будет показываться картинка
                 {
                     BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D,
                     Dock = System.Windows.Forms.DockStyle.Fill,
@@ -88,7 +88,7 @@ namespace Windows_Forms_rakenduste_loomine
                 tableLayoutPanel.SetColumnSpan(pictureBox, 2);
 
 
-                checkBox = new CheckBox
+                checkBox = new CheckBox //checkbox который будет растягивать картинку по всей облости рамки picturebox
                 {
                     AutoSize = true,
                     Location = new System.Drawing.Point(150, 278),
@@ -102,7 +102,7 @@ namespace Windows_Forms_rakenduste_loomine
                 tableLayoutPanel.Controls.Add(checkBox);
 
 
-                close = new Button
+                close = new Button //кнопка которая будет закрывать программу
                 {
                     Text = "Suleda",
                     TabIndex = 1,
@@ -111,7 +111,7 @@ namespace Windows_Forms_rakenduste_loomine
                 this.Controls.Add(close);
 
 
-                colordialog = new ColorDialog
+                colordialog = new ColorDialog //функция которая выводит палитру, которая может заменить задний фон рамки
                 {
                     AllowFullOpen = true,
                     AnyColor = true,
@@ -119,7 +119,7 @@ namespace Windows_Forms_rakenduste_loomine
                     Color = Color.Red,
                 };
 
-                bgColor = new Button
+                bgColor = new Button //кнопка которая выводит палитру
                 {
                     AutoSize = true,
                     TabIndex = 1,
@@ -130,7 +130,7 @@ namespace Windows_Forms_rakenduste_loomine
                 tableLayoutPanel.Controls.Add(bgColor);
                 this.bgColor.Click += new System.EventHandler(this.bgColor_Click);
 
-                clear = new Button
+                clear = new Button //кнопка которая очищает рамку и удаляет картинку
                 {
                     AutoSize = true,
                     TabIndex = 2,
@@ -140,7 +140,7 @@ namespace Windows_Forms_rakenduste_loomine
                 tableLayoutPanel.Controls.Add(clear);
                 this.clear.Click += new System.EventHandler(this.clear_Click);
 
-                showPicture = new Button
+                showPicture = new Button //кнопка при помощи которой можно открыть картинку, и именно через систему компьютера дается выбор что открыть
                 {
                     AutoSize = true,
                     TabIndex = 3,
@@ -151,7 +151,7 @@ namespace Windows_Forms_rakenduste_loomine
                 tableLayoutPanel.Controls.Add(showPicture);
                 this.showPicture.Click += new System.EventHandler(this.showPicture_Click);
 
-                openfiledialog = new OpenFileDialog
+                openfiledialog = new OpenFileDialog //функция которая открывает проводник и дает выбор картинок из загруженых на компьютере
                 {
                     RestoreDirectory = true,
                     Title = "Browse Text Files",
@@ -159,7 +159,7 @@ namespace Windows_Forms_rakenduste_loomine
 
                 };
                 Button[] buttons = { clear, showPicture, close, bgColor };
-                flowlayoutpanel = new FlowLayoutPanel
+                flowlayoutpanel = new FlowLayoutPanel //
                 {
                     Dock = DockStyle.Fill,
                     FlowDirection = FlowDirection.LeftToRight,
