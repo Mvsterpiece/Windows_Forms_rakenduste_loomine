@@ -24,7 +24,6 @@ namespace Windows_Forms_rakenduste_loomine
         ColorDialog colordialog;
         OpenFileDialog openfiledialog;
         FlowLayoutPanel flowlayoutpanel;
-        MathQuiz mathQuiz;
 
         public MinuVorm()
         {
@@ -37,7 +36,7 @@ namespace Windows_Forms_rakenduste_loomine
             TreeNode oksad = new TreeNode("Elemendid");
             oksad.Nodes.Add(new TreeNode("Pildid"));
             oksad.Nodes.Add(new TreeNode("MangQuiz"));
-
+            oksad.Nodes.Add(new TreeNode("MatchingGame"));
 
             puu.AfterSelect += Puu_AfterSelect;
             puu.Nodes.Add(oksad);
@@ -72,7 +71,7 @@ namespace Windows_Forms_rakenduste_loomine
                 this.Controls.Add(tableLayoutPanel);
 
 
-                pictureBox = new System.Windows.Forms.PictureBox //создание рамки в которой будет показываться картинка
+                pictureBox = new System.Windows.Forms.PictureBox //luua raam, milles pilt kuvatakse
                 {
                     BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D,
                     Dock = System.Windows.Forms.DockStyle.Fill,
@@ -88,7 +87,7 @@ namespace Windows_Forms_rakenduste_loomine
                 tableLayoutPanel.SetColumnSpan(pictureBox, 2);
 
 
-                checkBox = new CheckBox //checkbox который будет растягивать картинку по всей облости рамки picturebox
+                checkBox = new CheckBox //checkbox, mis venitab pildi kogu pildikasti raami ala pictirebox
                 {
                     AutoSize = true,
                     Location = new System.Drawing.Point(150, 278),
@@ -102,7 +101,7 @@ namespace Windows_Forms_rakenduste_loomine
                 tableLayoutPanel.Controls.Add(checkBox);
 
 
-                close = new Button //кнопка которая будет закрывать программу
+                close = new Button //nuppu programmi sulgemiseks
                 {
                     Text = "Suleda",
                     TabIndex = 1,
@@ -111,7 +110,7 @@ namespace Windows_Forms_rakenduste_loomine
                 this.Controls.Add(close);
 
 
-                colordialog = new ColorDialog //функция которая выводит палитру, которая может заменить задний фон рамки
+                colordialog = new ColorDialog //funktsioon, mis väljastab paleti, mis võib asendada raami tausta
                 {
                     AllowFullOpen = true,
                     AnyColor = true,
@@ -119,7 +118,7 @@ namespace Windows_Forms_rakenduste_loomine
                     Color = Color.Red,
                 };
 
-                bgColor = new Button //кнопка которая выводит палитру
+                bgColor = new Button //nupp, mis kuvab paleti
                 {
                     AutoSize = true,
                     TabIndex = 1,
@@ -130,7 +129,7 @@ namespace Windows_Forms_rakenduste_loomine
                 tableLayoutPanel.Controls.Add(bgColor);
                 this.bgColor.Click += new System.EventHandler(this.bgColor_Click);
 
-                clear = new Button //кнопка которая очищает рамку и удаляет картинку
+                clear = new Button //nupp, mis puhastab raami ja eemaldab pildi
                 {
                     AutoSize = true,
                     TabIndex = 2,
@@ -140,7 +139,7 @@ namespace Windows_Forms_rakenduste_loomine
                 tableLayoutPanel.Controls.Add(clear);
                 this.clear.Click += new System.EventHandler(this.clear_Click);
 
-                showPicture = new Button //кнопка при помощи которой можно открыть картинку, и именно через систему компьютера дается выбор что открыть
+                showPicture = new Button //nupp, millega saab pilti avada ja just arvutisüsteemi kaudu antakse valik, mida avada
                 {
                     AutoSize = true,
                     TabIndex = 3,
@@ -151,7 +150,7 @@ namespace Windows_Forms_rakenduste_loomine
                 tableLayoutPanel.Controls.Add(showPicture);
                 this.showPicture.Click += new System.EventHandler(this.showPicture_Click);
 
-                openfiledialog = new OpenFileDialog //функция которая открывает проводник и дает выбор картинок из загруженых на компьютере
+                openfiledialog = new OpenFileDialog //funktsioon, mis avab Exploreri ja võimaldab valida arvutisse allalaaditud piltide hulgast
                 {
                     RestoreDirectory = true,
                     Title = "Browse Text Files",
@@ -159,7 +158,7 @@ namespace Windows_Forms_rakenduste_loomine
 
                 };
                 Button[] buttons = { clear, showPicture, close, bgColor };
-                flowlayoutpanel = new FlowLayoutPanel //
+                flowlayoutpanel = new FlowLayoutPanel
                 {
                     Dock = DockStyle.Fill,
                     FlowDirection = FlowDirection.LeftToRight,
@@ -168,32 +167,37 @@ namespace Windows_Forms_rakenduste_loomine
                 tableLayoutPanel.Controls.Add(flowlayoutpanel, 1, 1);
                 this.Controls.Add(tableLayoutPanel);
             }
-            else if (e.Node.Text == "MangQuiz")
+            else if (e.Node.Text == "MangQuiz") //matemaatikaviktoriini mängu käivitamine eraldi aknas
             {
                 MathQuiz nupp = new MathQuiz("Math Quiz");
                 nupp.ShowDialog();
             }
+            else if (e.Node.Text == "MatchingGame") //matemaatikaviktoriini mängu käivitamine eraldi aknas
+            {
+                MatchingGame el = new MatchingGame("Matching Game");
+                el.ShowDialog();
+            }
         }
 
-        private void close_Click(object sender, EventArgs e)
+        private void close_Click(object sender, EventArgs e) //funktsioon, mis sulgeb programmi
         {
             this.Close();
         }
 
-        private void showPicture_Click(object sender, EventArgs e)
+        private void showPicture_Click(object sender, EventArgs e) //pildi avamise funktsioon
         {
             if (openfiledialog.ShowDialog() == DialogResult.OK)
             {
-                pictureBox.Load(openfiledialog.FileName);
+                pictureBox.Load(openfiledialog.FileName); //valitud fail laaditakse nime järgi
             }
         }
 
-        private void clear_Click(object sender, EventArgs e)
+        private void clear_Click(object sender, EventArgs e) //eemaldab pildi picturebox
         {
             pictureBox.Image = null;
         }
 
-        private void CheckBox_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox_CheckedChanged(object sender, EventArgs e) //funktsioon, mis venitab pildi üle kogu kaadri ala
         {
             if (checkBox.Checked)
             {
@@ -202,7 +206,7 @@ namespace Windows_Forms_rakenduste_loomine
             else { pictureBox.SizeMode = PictureBoxSizeMode.Normal; }
         }
 
-        private void bgColor_Click(object sender, EventArgs e)
+        private void bgColor_Click(object sender, EventArgs e) //funktsioon, mille abil saate valida raami taustavärvi
         {
             if (colordialog.ShowDialog() == DialogResult.OK)
             {

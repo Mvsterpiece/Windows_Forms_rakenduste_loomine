@@ -12,7 +12,7 @@ namespace Windows_Forms_rakenduste_loomine
     {
         public event EventHandler Tick;
         Random rnd = new Random();
-        string[] Maths = { "Lisa", "Lahuta", "Korruta" };
+        string[] Maths = { "Lisamine", "Lahutamine", "Korrutamine" };
         int total1, total2, total3, total4, score, correct;
         private int counter = 60;
         private Timer timer1;
@@ -67,7 +67,7 @@ namespace Windows_Forms_rakenduste_loomine
                 Name = "lblScore",
                 Size = new Size(50, 15),
                 TabIndex = 0,
-                Text = "Punktid: 0",
+                Text = "Punktid:",
             };
 
             foreach (Label sym in lblNumArrayA) //silt, mis näitab enne mängu algust nulli numbrit
@@ -157,7 +157,7 @@ namespace Windows_Forms_rakenduste_loomine
 
             button1 = new Button //nupu Kontroll loomine, mis toimib vastuste õigsuse kontrollina.
             {
-                Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 200),
+                Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Italic, GraphicsUnit.Point, 200),
                 Location = new Point(290, 40),
                 Name = "button1",
                 Size = new Size(75, 35),
@@ -169,7 +169,7 @@ namespace Windows_Forms_rakenduste_loomine
 
             buttonTimer = new Button //taimeri nupu loomine, vajutamisel kuvatakse näited ja algab aja lugemine
             {
-                Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 200),
+                Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Italic, GraphicsUnit.Point, 200),
                 Location = new Point(290, 40),
                 Name = "button1",
                 Size = new Size(75, 35),
@@ -181,7 +181,7 @@ namespace Windows_Forms_rakenduste_loomine
             lblTimer = new Label //sildi loomine, milles kuvatakse taimerit, on sildil algselt enne alusta nupu vajutamist tekst "--:--:--"
             {
                 AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point, 200),
+                Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Italic, GraphicsUnit.Point, 200),
                 Name = "lblAnswer",
                 Size = new Size(50, 15),
                 TabIndex = 5,
@@ -325,19 +325,19 @@ namespace Windows_Forms_rakenduste_loomine
                 Color colorSym = Color.Black;
                 switch (Maths[rnd.Next(0, Maths.Length)])
                 {
-                    case "Lisa":
+                    case "Lisamine":
                         totalArray[ii] = numA + numB;
                         Tsym = "+";
                         colorSym = Color.Green;
                         break;
 
-                    case "Lahuta":
+                    case "Lahutamine":
                         totalArray[ii] = numA - numB;
                         Tsym = "-";
                         colorSym = Color.Maroon;
                         break;
 
-                    case "Korruta":
+                    case "Korrutamine":
                         totalArray[ii] = numA * numB;
                         Tsym = "x";
                         colorSym = Color.Purple;
