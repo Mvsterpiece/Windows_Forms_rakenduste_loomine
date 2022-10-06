@@ -29,7 +29,7 @@ namespace Windows_Forms_rakenduste_loomine
             ClientSize = new Size(1200, 550);
             table = new TableLayoutPanel
             {
-                BackColor = Color.MediumVioletRed,
+                BackColor = Color.Black,
                 Dock = DockStyle.Fill,
                 CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset,
                 RowCount = 4,
@@ -46,7 +46,7 @@ namespace Windows_Forms_rakenduste_loomine
 
                     Label lbl = new Label
                     {
-                        BackColor = Color.Coral,
+                        BackColor = Color.LightCyan,
                         AutoSize = false,
                         Dock = DockStyle.Fill,
                         TextAlign = ContentAlignment.MiddleCenter,
