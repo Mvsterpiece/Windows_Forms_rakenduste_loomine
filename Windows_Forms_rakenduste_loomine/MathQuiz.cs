@@ -62,7 +62,7 @@ namespace Windows_Forms_rakenduste_loomine
             lblScore = new Label //sildi "Score" loomine, mis näitab punkte õigesti vastatud 4 näite eest
             {
                 AutoSize = true,
-                ForeColor = Color.Maroon,
+                ForeColor = Color.MediumOrchid,
                 Location = new Point(10, 10),
                 Name = "lblScore",
                 Size = new Size(50, 15),
@@ -246,7 +246,7 @@ namespace Windows_Forms_rakenduste_loomine
                 {
                     item.Enabled = false;
                 }
-            }
+            } 
         }
         private void ButtonTimer_Click(object sender, EventArgs e) //nupufunktsioon, mis käivitab taimeri
         {
