@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,6 +24,10 @@ namespace Windows_Forms_rakenduste_loomine
         };
         public MatchingGame(string title)
         {
+            using (var muusika = new SoundPlayer(@"..\..\ashot.wav"))
+            {
+                muusika.Play();
+            }
             CenterToScreen();
             timer1.Tick += Tick;
             Text = "Matching game";
@@ -129,8 +134,12 @@ namespace Windows_Forms_rakenduste_loomine
                 }
             }
 
-            MessageBox.Show("Õnnitleme, olete kõik leidnud!");
-            Close();
+            using (var muusika = new SoundPlayer(@"..\..\end.wav"))
+            {
+                MessageBox.Show("Õnnitleme, olete kõik leidnud!");
+                muusika.Stop();
+                Close();
+            }
         }
     }
 }
