@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -241,12 +242,16 @@ namespace Windows_Forms_rakenduste_loomine
             else
             {
                 timer1.Stop();
-                lblTimer.Text = "See on kõik, rohkem aega ei anna!";
+                using (var muusika = new SoundPlayer(@"..\..\theEnd.wav"))
+                {
+                    muusika.Play();
+                    lblTimer.Text = "See on kõik, rohkem aega ei anna!";
+                }
                 foreach (var item in AnswerArray)
                 {
                     item.Enabled = false;
                 }
-            } 
+            }
         }
         private void ButtonTimer_Click(object sender, EventArgs e) //nupufunktsioon, mis käivitab taimeri
         {
