@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Media;
@@ -11,6 +12,7 @@ namespace Windows_Forms_rakenduste_loomine
 {
     public class MathQuiz : MinuVorm
     {
+        
         public event EventHandler Tick;
         Random rnd = new Random();
         string[] Maths = { "Lisamine", "Lahutamine", "Korrutamine" };
@@ -28,10 +30,6 @@ namespace Windows_Forms_rakenduste_loomine
         TableLayoutPanel table;
 
         public MathQuiz(string title)
-        {
-            StartGame();
-        }
-        internal void StartGame() //funktsioon kuvab menüü eraldi aknas, mis kirjutati tagasi MinuVormis
         {
             SuspendLayout();
             ClientSize = new Size(450, 400);
@@ -190,7 +188,7 @@ namespace Windows_Forms_rakenduste_loomine
             };
             timer1 = new Timer
             {
-                Interval = 1000
+                Interval = 10
             };
 
             //kõigi siltide, nuppude jms kuvamine laual
@@ -229,8 +227,8 @@ namespace Windows_Forms_rakenduste_loomine
             table.Controls.Add(button1, 4, 4);
             table.Controls.Add(buttonTimer, 4, 5);
             table.Controls.Add(lblTimer);
-
         }
+       
 
         private void timer1_Tick(object sender, EventArgs e) //taimeri funktsioon, mis aktiveeritakse nupuga ja pärast aja möödumist, kui inimene ei vastanud, annab vastuse
         {
@@ -242,15 +240,26 @@ namespace Windows_Forms_rakenduste_loomine
             else
             {
                 timer1.Stop();
-                using (var muusika = new SoundPlayer(@"..\..\theEnd.wav"))
-                {
-                    muusika.Play();
-                    lblTimer.Text = "See on kõik, rohkem aega ei anna!";
-                }
                 foreach (var item in AnswerArray)
                 {
                     item.Enabled = false;
                 }
+                using (var muusika = new SoundPlayer(@"..\..\theEnd.wav"))
+                {
+                    muusika.Play();
+                }
+                var vastus = MessageBox.Show("See on kõik, rohkem aega ei anna!\nTahad veel proovida?", "Lõpp", MessageBoxButtons.YesNo);
+                if (vastus == DialogResult.Yes)
+                {
+                    MathQuiz nupp = new MathQuiz("Math Quiz");
+                    nupp.ShowDialog();
+                }
+                else if (vastus == DialogResult.No)
+                {
+                    MessageBox.Show("Ok, bye");
+                    Close();
+                }
+                Close();
             }
         }
         private void ButtonTimer_Click(object sender, EventArgs e) //nupufunktsioon, mis käivitab taimeri
