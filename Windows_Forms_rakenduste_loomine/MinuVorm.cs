@@ -19,11 +19,12 @@ namespace Windows_Forms_rakenduste_loomine
         TreeView puu;
         TableLayoutPanel tableLayoutPanel;
         PictureBox pictureBox;
-        CheckBox checkBox;
+        CheckBox checkBox, cngSize, invtr;
         Button close, bgColor, clear, showPicture;
         ColorDialog colordialog;
         OpenFileDialog openfiledialog;
         FlowLayoutPanel flowlayoutpanel;
+        Bitmap _currentBitmap;
 
         public MinuVorm()
         {
@@ -81,7 +82,6 @@ namespace Windows_Forms_rakenduste_loomine
                     AutoSize = false,
 
                 };
-
                 tableLayoutPanel.Controls.Add(pictureBox, 0, 0);
                 tableLayoutPanel.SetCellPosition(pictureBox, new TableLayoutPanelCellPosition(0, 0));
                 tableLayoutPanel.SetColumnSpan(pictureBox, 2);
@@ -99,6 +99,33 @@ namespace Windows_Forms_rakenduste_loomine
                 };
                 checkBox.CheckedChanged += new System.EventHandler(CheckBox_CheckedChanged);
                 tableLayoutPanel.Controls.Add(checkBox);
+
+                cngSize = new CheckBox //checkbox, mis muudab pictureBox laius
+                {
+                    AutoSize = true,
+                    Location = new System.Drawing.Point(150, 278),
+                    TabIndex = 1,
+                    UseVisualStyleBackColor = true,
+                    Text = "Muuda laius",
+                    Dock = System.Windows.Forms.DockStyle.Fill,
+
+                };
+                cngSize.CheckedChanged += new System.EventHandler(cngSize_Click);
+                tableLayoutPanel.Controls.Add(cngSize);
+
+
+                invtr = new CheckBox //checkbox, mis muudab pilti Inverteris
+                {
+                    AutoSize = true,
+                    Location = new System.Drawing.Point(150, 278),
+                    TabIndex = 1,
+                    UseVisualStyleBackColor = true,
+                    Text = "Muuda kontrasti",
+                    Dock = System.Windows.Forms.DockStyle.Fill,
+
+                };
+                invtr.CheckedChanged +=SetInvert;
+                tableLayoutPanel.Controls.Add(invtr);
 
 
                 close = new Button //nuppu programmi sulgemiseks
@@ -150,6 +177,8 @@ namespace Windows_Forms_rakenduste_loomine
                 tableLayoutPanel.Controls.Add(showPicture);
                 this.showPicture.Click += new System.EventHandler(this.showPicture_Click);
 
+
+
                 openfiledialog = new OpenFileDialog //funktsioon, mis avab Exploreri ja võimaldab valida arvutisse allalaaditud piltide hulgast
                 {
                     RestoreDirectory = true,
@@ -157,7 +186,7 @@ namespace Windows_Forms_rakenduste_loomine
                     Filter = "JPEG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp|All file" + "s (*.*)|*.*",
 
                 };
-                Button[] buttons = { clear, showPicture, close, bgColor };
+                Button[] buttons = {clear, showPicture, close, bgColor };
                 flowlayoutpanel = new FlowLayoutPanel
                 {
                     Dock = DockStyle.Fill,
@@ -179,6 +208,31 @@ namespace Windows_Forms_rakenduste_loomine
             }
         }
 
+        private void SetInvert(object sender, EventArgs e)
+        {
+            Bitmap temp = (Bitmap)_currentBitmap;
+            Bitmap bmap = (Bitmap)temp.Clone();
+            Color c;
+            for (int i = 0; i < bmap.Width; i++)
+            {
+                for (int j = 0; j < bmap.Height; j++)
+                {
+                    c = bmap.GetPixel(i, j);
+                    bmap.SetPixel(i, j,
+        Color.FromArgb(255 - c.R, 255 - c.G, 255 - c.B));
+                }
+            }
+            _currentBitmap = (Bitmap)bmap.Clone();
+        }
+
+        private void cngSize_Click(object sender, EventArgs e)
+        {
+            if (cngSize.Checked)
+            {
+                tableLayoutPanel.SetColumnSpan(pictureBox, 1);
+            }
+            else { tableLayoutPanel.SetColumnSpan(pictureBox, 2); }
+        }
         private void close_Click(object sender, EventArgs e) //funktsioon, mis sulgeb programmi
         {
             this.Close();
@@ -213,6 +267,9 @@ namespace Windows_Forms_rakenduste_loomine
                 pictureBox.BackColor = colordialog.Color;
             }
         }
+
+        
+
     }
 
 }

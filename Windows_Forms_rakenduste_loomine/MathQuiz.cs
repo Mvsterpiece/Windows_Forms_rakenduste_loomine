@@ -247,6 +247,7 @@ namespace Windows_Forms_rakenduste_loomine
                 using (var muusika = new SoundPlayer(@"..\..\theEnd.wav"))
                 {
                     muusika.Play();
+                    this.Close();
                 }
                 var vastus = MessageBox.Show("See on kõik, rohkem aega ei anna!\nTahad veel proovida?", "Lõpp", MessageBoxButtons.YesNo);
                 if (vastus == DialogResult.Yes)
@@ -257,9 +258,8 @@ namespace Windows_Forms_rakenduste_loomine
                 else if (vastus == DialogResult.No)
                 {
                     MessageBox.Show("Ok, bye");
-                    Close();
+                    this.Close();
                 }
-                Close();
             }
         }
         private void ButtonTimer_Click(object sender, EventArgs e) //nupufunktsioon, mis käivitab taimeri

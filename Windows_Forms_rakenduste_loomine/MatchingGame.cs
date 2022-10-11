@@ -133,13 +133,24 @@ namespace Windows_Forms_rakenduste_loomine
                         return;
                 }
             }
-
-            using (var muusika = new SoundPlayer(@"..\..\end.wav"))
+            var vastus = MessageBox.Show("Õnnitleme, olete kõik leidnud!", "Lõpp", MessageBoxButtons.YesNo);
+            if (vastus == DialogResult.Yes)
             {
-                MessageBox.Show("Õnnitleme, olete kõik leidnud!");
-                muusika.Stop();
+                this.Close();
+                MatchingGame el = new MatchingGame("Matching Game");
+                el.ShowDialog();
+            }
+            else if (vastus == DialogResult.No)
+            {
+                MessageBox.Show("Ok, bye");
                 Close();
             }
+            //using (var muusika = new SoundPlayer(@"..\..\end.wav"))
+            //{
+            //    MessageBox.Show("Õnnitleme, olete kõik leidnud!");
+            //    muusika.Stop();
+            //    Close();
+            //}
         }
     }
 }
