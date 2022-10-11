@@ -9,4 +9,4 @@ Pildi vaatamine<br>
 
 MathQuiz<br>
 1)Kui aega mäng on läbi<br>
-On valik veel kord mängida või suleda programmi.<br>
+2)On valik veel kord mängida või suleda programmi.<br>
