@@ -1,5 +1,5 @@
 # Windows_Forms_rakenduste_loomine
-Mathcing Game<br>
+<h1>Mathcing Game</h1><br>
 1)Kui sa algas mängi siis mängib mingi muusika<br>
 2)Lõpus saab valida veel kord mängida või suleda.<br>
 <br>
