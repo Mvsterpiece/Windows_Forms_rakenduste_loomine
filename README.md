@@ -5,6 +5,7 @@ Mathcing Game<br>
 <br>
 Pildi vaatamine<br>
 1)On nupp mis muudab pictureBox laius.<br>
+2)Võib muuda pildi "Invert"<br>
 <br>
 
 MathQuiz<br>
