@@ -1,4 +1,12 @@
 # Windows_Forms_rakenduste_loomine
-Mathcing Game, kui sa algas mängi siis mängib mingi muusika<br>
-Pildi vaatamine, on nupp kus saab sisestada uue tabeli laius ja pikkus, siis muutab.<br>
-MathQuiz kui aega mäng on läbi, siis on valik veel kord mängida või suleda programmi.
+<h3>Mathcing Game</h3><br>
+1)Kui sa algas mängi siis mängib mingi muusika<br>
+2)Lõpus saab valida veel kord mängida või suleda.<br>
+
+<h3>Pildi vaatamine</h3><br>
+1)On nupp mis muudab pictureBox laius.<br>
+2)Võib muuda pildi "Invert"<br>
+
+<h3>MathQuiz</h3><br>
+1)Kui aega mäng on läbi<br>
+2)On valik veel kord mängida või suleda programmi.<br>
