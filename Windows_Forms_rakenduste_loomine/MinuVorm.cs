@@ -19,8 +19,8 @@ namespace Windows_Forms_rakenduste_loomine
         TreeView puu;
         TableLayoutPanel tableLayoutPanel;
         PictureBox pictureBox;
-        CheckBox checkBox, cngSize, invtr;
-        Button close, bgColor, clear, showPicture;
+        CheckBox checkBox, cngSize;
+        Button close, bgColor, clear, showPicture, invtr;
         ColorDialog colordialog;
         OpenFileDialog openfiledialog;
         FlowLayoutPanel flowlayoutpanel;
@@ -113,19 +113,14 @@ namespace Windows_Forms_rakenduste_loomine
                 cngSize.CheckedChanged += new System.EventHandler(cngSize_Click);
                 tableLayoutPanel.Controls.Add(cngSize);
 
-
-                invtr = new CheckBox //checkbox, mis muudab pilti Inverteris
+                invtr = new Button //nuppu programmi sulgemiseks
                 {
-                    AutoSize = true,
-                    Location = new System.Drawing.Point(150, 278),
+                    Text = "Muuda pildi invertiks",
                     TabIndex = 1,
-                    UseVisualStyleBackColor = true,
-                    Text = "Muuda kontrasti",
-                    Dock = System.Windows.Forms.DockStyle.Fill,
-
                 };
-                invtr.CheckedChanged +=SetInvert;
-                tableLayoutPanel.Controls.Add(invtr);
+                this.invtr.Click += new System.EventHandler(this.Invert_Click);
+                this.Controls.Add(invtr);
+
 
 
                 close = new Button //nuppu programmi sulgemiseks
@@ -186,7 +181,7 @@ namespace Windows_Forms_rakenduste_loomine
                     Filter = "JPEG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp|All file" + "s (*.*)|*.*",
 
                 };
-                Button[] buttons = {clear, showPicture, close, bgColor };
+                Button[] buttons = {clear, showPicture, close, bgColor, invtr };
                 flowlayoutpanel = new FlowLayoutPanel
                 {
                     Dock = DockStyle.Fill,
@@ -206,23 +201,6 @@ namespace Windows_Forms_rakenduste_loomine
                 MatchingGame el = new MatchingGame("Matching Game");
                 el.ShowDialog();
             }
-        }
-
-        private void SetInvert(object sender, EventArgs e)
-        {
-            Bitmap temp = (Bitmap)_currentBitmap;
-            Bitmap bmap = (Bitmap)temp.Clone();
-            Color c;
-            for (int i = 0; i < bmap.Width; i++)
-            {
-                for (int j = 0; j < bmap.Height; j++)
-                {
-                    c = bmap.GetPixel(i, j);
-                    bmap.SetPixel(i, j,
-        Color.FromArgb(255 - c.R, 255 - c.G, 255 - c.B));
-                }
-            }
-            _currentBitmap = (Bitmap)bmap.Clone();
         }
 
         private void cngSize_Click(object sender, EventArgs e)
@@ -268,7 +246,24 @@ namespace Windows_Forms_rakenduste_loomine
             }
         }
 
-        
+        private void Invert_Click(object sender, EventArgs e)
+        {
+            Bitmap pic = new Bitmap(pictureBox.Image);
+            for (int y = 0; (y
+                        <= (pic.Height - 1)); y++)
+            {
+                for (int x = 0; (x
+                            <= (pic.Width - 1)); x++)
+                {
+                    Color inv = pic.GetPixel(x, y);
+                    inv = Color.FromArgb(255, (255 - inv.R), (255 - inv.G), (255 - inv.B));
+                    pic.SetPixel(x, y, inv);
+                    pictureBox.Image = pic;
+                }
+
+            }
+
+        }
 
     }
 
