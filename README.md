@@ -4,7 +4,7 @@ Mathcing Game<br>
 2)Lõpus saab valida veel kord mängida või suleda.<br>
 <br>
 Pildi vaatamine<br>
-1)On nupp mis muudab pictureBox laius<br>
+1)On nupp mis muudab pictureBox laius.<br>
 <br>
 
 MathQuiz<br>
