@@ -133,6 +133,11 @@ namespace Windows_Forms_rakenduste_loomine
                         return;
                 }
             }
+            using (var muusika = new SoundPlayer(@"..\..\end.wav"))
+            {
+                muusika.Play();
+                Close();
+            }
             var vastus = MessageBox.Show("Õnnitleme, olete kõik leidnud!", "Lõpp", MessageBoxButtons.YesNo);
             if (vastus == DialogResult.Yes)
             {
@@ -145,12 +150,6 @@ namespace Windows_Forms_rakenduste_loomine
                 MessageBox.Show("Ok, bye");
                 Close();
             }
-            //using (var muusika = new SoundPlayer(@"..\..\end.wav"))
-            //{
-            //    MessageBox.Show("Õnnitleme, olete kõik leidnud!");
-            //    muusika.Stop();
-            //    Close();
-            //}
         }
     }
 }
