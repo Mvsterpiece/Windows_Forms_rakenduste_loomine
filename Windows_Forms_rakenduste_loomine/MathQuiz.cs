@@ -252,6 +252,7 @@ namespace Windows_Forms_rakenduste_loomine
                 var vastus = MessageBox.Show("See on kõik, rohkem aega ei anna!\nTahad veel proovida?", "Lõpp", MessageBoxButtons.YesNo);
                 if (vastus == DialogResult.Yes)
                 {
+
                     MathQuiz nupp = new MathQuiz("Math Quiz");
                     nupp.ShowDialog();
                 }

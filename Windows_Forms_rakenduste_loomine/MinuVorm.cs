@@ -21,11 +21,10 @@ namespace Windows_Forms_rakenduste_loomine
         TableLayoutPanel tableLayoutPanel;
         PictureBox pictureBox;
         CheckBox checkBox, cngSize;
-        Button close, bgColor, clear, showPicture, invtr, rotate;
+        Button close, bgColor, clear, showPicture, invtr, rotate, colors;
         ColorDialog colordialog;
         OpenFileDialog openfiledialog;
         FlowLayoutPanel flowlayoutpanel;
-        Bitmap _currentBitmap;
 
         public MinuVorm()
         {
@@ -129,7 +128,6 @@ namespace Windows_Forms_rakenduste_loomine
                 };
                 this.rotate.Click += new System.EventHandler(this.Rotate);
                 this.Controls.Add(rotate);
-
 
                 close = new Button //nuppu programmi sulgemiseks
                 {
@@ -279,7 +277,6 @@ namespace Windows_Forms_rakenduste_loomine
                     pictureBox.Image = pic;
                 }
             }
-
         }
 
         private void Rotate(System.Object sender, System.EventArgs e) //funktsioon mis pöödrub pildi
@@ -291,7 +288,6 @@ namespace Windows_Forms_rakenduste_loomine
                 pictureBox.Image = pic;
             }
         }
-
 
     }
 
