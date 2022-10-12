@@ -9,6 +9,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.AxHost;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using CheckBox = System.Windows.Forms.CheckBox;
 
@@ -20,7 +21,7 @@ namespace Windows_Forms_rakenduste_loomine
         TableLayoutPanel tableLayoutPanel;
         PictureBox pictureBox;
         CheckBox checkBox, cngSize;
-        Button close, bgColor, clear, showPicture, invtr;
+        Button close, bgColor, clear, showPicture, invtr, rotate;
         ColorDialog colordialog;
         OpenFileDialog openfiledialog;
         FlowLayoutPanel flowlayoutpanel;
@@ -121,6 +122,13 @@ namespace Windows_Forms_rakenduste_loomine
                 this.invtr.Click += new System.EventHandler(this.Invert_Click);
                 this.Controls.Add(invtr);
 
+                rotate = new Button //nupp mis pöördab pildi
+                {
+                    Text = "Pöörda",
+                    TabIndex = 1,
+                };
+                this.rotate.Click += new System.EventHandler(this.Rotate);
+                this.Controls.Add(rotate);
 
 
                 close = new Button //nuppu programmi sulgemiseks
@@ -181,15 +189,27 @@ namespace Windows_Forms_rakenduste_loomine
                     Filter = "JPEG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp|All file" + "s (*.*)|*.*",
 
                 };
-                Button[] buttons = {clear, showPicture, close, bgColor, invtr };
+                Button[] buttons = {clear, showPicture, close, bgColor, invtr, rotate };
                 flowlayoutpanel = new FlowLayoutPanel
                 {
                     Dock = DockStyle.Fill,
                     FlowDirection = FlowDirection.LeftToRight,
                 };
                 flowlayoutpanel.Controls.AddRange(buttons);
+                tableLayoutPanel.Controls.Add(flowlayoutpanel, 0, 1);
+                this.Controls.Add(tableLayoutPanel);
+
+                CheckBox[] checkboxs = { checkBox, cngSize };
+                flowlayoutpanel = new FlowLayoutPanel
+                {
+                    Dock = DockStyle.Fill,
+                    FlowDirection = FlowDirection.LeftToRight,
+                };
+                flowlayoutpanel.Controls.AddRange(checkboxs);
                 tableLayoutPanel.Controls.Add(flowlayoutpanel, 1, 1);
                 this.Controls.Add(tableLayoutPanel);
+
+
             }
             else if (e.Node.Text == "MangQuiz") //matemaatikaviktoriini mängu käivitamine eraldi aknas
             {
@@ -246,7 +266,7 @@ namespace Windows_Forms_rakenduste_loomine
             }
         }
 
-        private void Invert_Click(object sender, EventArgs e)
+        private void Invert_Click(object sender, EventArgs e) //funktstioon mis inverteerib pilid teise värvideks
         {
             Bitmap pic = new Bitmap(pictureBox.Image);
             for (int y = 0; (y<= (pic.Height - 1)); y++)
@@ -258,10 +278,20 @@ namespace Windows_Forms_rakenduste_loomine
                     pic.SetPixel(x, y, inv);
                     pictureBox.Image = pic;
                 }
-
             }
 
         }
+
+        private void Rotate(System.Object sender, System.EventArgs e) //funktsioon mis pöödrub pildi
+        {
+            Bitmap pic = new Bitmap(pictureBox.Image);
+            if (pic != null)
+            {
+                pic.RotateFlip(RotateFlipType.Rotate180FlipY);
+                pictureBox.Image = pic;
+            }
+        }
+
 
     }
 
