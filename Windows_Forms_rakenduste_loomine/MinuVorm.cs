@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,10 +22,13 @@ namespace Windows_Forms_rakenduste_loomine
         TableLayoutPanel tableLayoutPanel;
         PictureBox pictureBox;
         CheckBox checkBox, cngSize;
-        Button close, bgColor, clear, showPicture, invtr, rotate, colors;
+        Button close, bgColor, clear, showPicture, invtr, rotate, slideshow;
         ColorDialog colordialog;
         OpenFileDialog openfiledialog;
         FlowLayoutPanel flowlayoutpanel;
+        FolderBrowserDialog slide;
+        Timer timer;
+        int imgNum = 1;
 
         public MinuVorm()
         {
@@ -50,7 +54,7 @@ namespace Windows_Forms_rakenduste_loomine
             if (e.Node.Text == "Pildid")
             {
                 Text = "Pilti vaatamine";
-                this.Size = new System.Drawing.Size(1280, 500);
+                this.Size = new System.Drawing.Size(1280, 650);
                 tableLayoutPanel = new TableLayoutPanel
                 {
                     AutoSize = true,
@@ -65,10 +69,6 @@ namespace Windows_Forms_rakenduste_loomine
                 tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
                 tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
                 tableLayoutPanel.ResumeLayout(false);
-
-
-
-
                 this.Controls.Add(tableLayoutPanel);
 
 
@@ -146,6 +146,16 @@ namespace Windows_Forms_rakenduste_loomine
                     Color = Color.Red,
                 };
 
+                clear = new Button //nupp, mis puhastab raami ja eemaldab pildi
+                {
+                    AutoSize = true,
+                    TabIndex = 2,
+                    Text = "Kustuta",
+                    UseVisualStyleBackColor = true,
+                };
+                tableLayoutPanel.Controls.Add(clear);
+                this.clear.Click += new System.EventHandler(this.clear_Click);
+
                 bgColor = new Button //nupp, mis kuvab paleti
                 {
                     AutoSize = true,
@@ -156,16 +166,6 @@ namespace Windows_Forms_rakenduste_loomine
                 };
                 tableLayoutPanel.Controls.Add(bgColor);
                 this.bgColor.Click += new System.EventHandler(this.bgColor_Click);
-
-                clear = new Button //nupp, mis puhastab raami ja eemaldab pildi
-                {
-                    AutoSize = true,
-                    TabIndex = 2,
-                    Text = "Kustuta",
-                    UseVisualStyleBackColor = true,
-                };
-                tableLayoutPanel.Controls.Add(clear);
-                this.clear.Click += new System.EventHandler(this.clear_Click);
 
                 showPicture = new Button //nupp, millega saab pilti avada ja just arvutisüsteemi kaudu antakse valik, mida avada
                 {
@@ -178,7 +178,17 @@ namespace Windows_Forms_rakenduste_loomine
                 tableLayoutPanel.Controls.Add(showPicture);
                 this.showPicture.Click += new System.EventHandler(this.showPicture_Click);
 
-
+                slideshow = new Button
+                {
+                    AutoSize = true,
+                    Location = new System.Drawing.Point(3, 3),
+                    Size = new System.Drawing.Size(75, 23),
+                    TabIndex = 5,
+                    Text = "SlideShow",
+                    UseVisualStyleBackColor = true,
+                };
+                tableLayoutPanel.Controls.Add(slideshow, 0, 3);
+                slideshow.Click += SlideShowButton_Click;
 
                 openfiledialog = new OpenFileDialog //funktsioon, mis avab Exploreri ja võimaldab valida arvutisse allalaaditud piltide hulgast
                 {
@@ -187,7 +197,7 @@ namespace Windows_Forms_rakenduste_loomine
                     Filter = "JPEG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp|All file" + "s (*.*)|*.*",
 
                 };
-                Button[] buttons = {clear, showPicture, close, bgColor, invtr, rotate };
+                Button[] buttons = {clear, showPicture, invtr, rotate, close, slideshow, bgColor };
                 flowlayoutpanel = new FlowLayoutPanel
                 {
                     Dock = DockStyle.Fill,
@@ -207,7 +217,11 @@ namespace Windows_Forms_rakenduste_loomine
                 tableLayoutPanel.Controls.Add(flowlayoutpanel, 1, 1);
                 this.Controls.Add(tableLayoutPanel);
 
-
+                timer = new Timer
+                {
+                    Interval = 1000,
+                };
+                timer.Tick += Timer_Tick;
             }
             else if (e.Node.Text == "MangQuiz") //matemaatikaviktoriini mängu käivitamine eraldi aknas
             {
@@ -219,8 +233,23 @@ namespace Windows_Forms_rakenduste_loomine
                 MatchingGame el = new MatchingGame("Matching Game");
                 el.ShowDialog();
             }
+
+
+        }
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            pictureBox.ImageLocation = string.Format(slide.SelectedPath + "\\img{0}.jpg", imgNum);
+            imgNum++;
+            if (imgNum == 5)
+                imgNum = 1;
         }
 
+        private void SlideShowButton_Click(object sender, EventArgs e)
+        {
+            slide = new FolderBrowserDialog();
+            slide.ShowDialog();
+            timer.Enabled = true;
+        }
         private void cngSize_Click(object sender, EventArgs e)
         {
             if (cngSize.Checked)
@@ -288,6 +317,8 @@ namespace Windows_Forms_rakenduste_loomine
                 pictureBox.Image = pic;
             }
         }
+
+
 
     }
 
