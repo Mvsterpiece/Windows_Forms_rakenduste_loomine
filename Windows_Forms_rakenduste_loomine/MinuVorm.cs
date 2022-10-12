@@ -249,11 +249,9 @@ namespace Windows_Forms_rakenduste_loomine
         private void Invert_Click(object sender, EventArgs e)
         {
             Bitmap pic = new Bitmap(pictureBox.Image);
-            for (int y = 0; (y
-                        <= (pic.Height - 1)); y++)
+            for (int y = 0; (y<= (pic.Height - 1)); y++)
             {
-                for (int x = 0; (x
-                            <= (pic.Width - 1)); x++)
+                for (int x = 0; (x<= (pic.Width - 1)); x++)
                 {
                     Color inv = pic.GetPixel(x, y);
                     inv = Color.FromArgb(255, (255 - inv.R), (255 - inv.G), (255 - inv.B));
