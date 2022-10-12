@@ -26,6 +26,7 @@ namespace Windows_Forms_rakenduste_loomine
         Label[] labelSymArray = { }, lblNumArrayA = { }, lblNumArrayB = { }, lblEqualsArray = { };
         TextBox[] AnswerArray = { };
         int[] totalArray = { };
+        Bitmap Image;
 
         TableLayoutPanel table;
 
