@@ -250,16 +250,17 @@ namespace Windows_Forms_rakenduste_loomine
                     this.Close();
                 }
                 var vastus = MessageBox.Show("See on kõik, rohkem aega ei anna!\nTahad veel proovida?", "Lõpp", MessageBoxButtons.YesNo);
-                if (vastus == DialogResult.Yes)
                 {
-
-                    MathQuiz nupp = new MathQuiz("Math Quiz");
-                    nupp.ShowDialog();
-                }
-                else if (vastus == DialogResult.No)
-                {
-                    MessageBox.Show("Ok, bye");
-                    this.Close();
+                    if (vastus == DialogResult.Yes)
+                    {
+                        MathQuiz nupp = new MathQuiz("Math Quiz");
+                        nupp.ShowDialog();
+                    }
+                    else if (vastus == DialogResult.No)
+                    {
+                        MessageBox.Show("Ok, bye");
+                        this.Close();
+                    }
                 }
             }
         }
@@ -308,7 +309,6 @@ namespace Windows_Forms_rakenduste_loomine
                 }
 
             }
-
             if (correct >= 4)
             {
                 lblAnswer.Text = "Õige!";
