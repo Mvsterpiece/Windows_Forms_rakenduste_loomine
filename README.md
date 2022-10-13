@@ -12,3 +12,4 @@
 <h3>MathQuiz</h3><br>
 1)Kui aega mäng on läbi<br>
 2)On valik veel kord mängida või suleda programmi.<br>
+3)Õigesti vastatud 4 näite punktid loetakse numbrite alla.<br>
