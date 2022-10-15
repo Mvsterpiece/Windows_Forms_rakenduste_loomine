@@ -1,7 +1,8 @@
 # Windows_Forms_rakenduste_loomine
 <h3>Mathcing Game</h3><br>
-1)Kui sa algas mängi siis mängib mingi muusika<br>
+1)Kui sa lopetas mängi siis mängib mingi "sound"<br>
 2)Lõpus saab valida veel kord mängida või suleda.<br>
+3)Allal on nupp mis saab alustada muusika, kui pole igav mangida.<br>
 
 <h3>Pildi vaatamine</h3><br>
 1)On nupp mis muudab pictureBox laius.<br>
