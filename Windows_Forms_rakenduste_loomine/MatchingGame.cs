@@ -17,6 +17,7 @@ namespace Windows_Forms_rakenduste_loomine
         Label firstClicked = null;
         Label secondClicked = null;
         Timer timer1 = new Timer { Interval = 750 };
+        private Button music;
         List<string> icons = new List<string>() //väärtuste loend, mis ilmuvad hiljem
         {
             "m", "m", "k", "k", "N", "N", "t", "t",
@@ -24,10 +25,6 @@ namespace Windows_Forms_rakenduste_loomine
         };
         public MatchingGame(string title)
         {
-            using (var muusika = new SoundPlayer(@"..\..\ashot.wav"))
-            {
-                muusika.Play();
-            }
             CenterToScreen();
             timer1.Tick += Tick;
             Text = "Matching game";
@@ -37,8 +34,8 @@ namespace Windows_Forms_rakenduste_loomine
                 BackColor = Color.White,
                 Dock = DockStyle.Fill,
                 CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset,
-                RowCount = 4,
-                ColumnCount = 4
+                RowCount = 5,
+                ColumnCount = 5
             };
 
             this.Controls.Add(table);
@@ -76,8 +73,29 @@ namespace Windows_Forms_rakenduste_loomine
                 iconLabel.Click += Click;
             }
 
+
+
+            music = new Button //taimeri nupu loomine, vajutamisel kuvatakse näited ja algab aja lugemine
+            {
+                Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Italic, GraphicsUnit.Point, 200),
+                Location = new Point(290, 40),
+                Name = "button1",
+                Size = new Size(100, 35),
+                TabIndex = 7,
+                Text = "Muusika",
+                UseVisualStyleBackColor = true,
+            };
+            music.Click += new EventHandler(MusicStart);
+            table.Controls.Add(music, 0, 4);
         }
 
+        private void MusicStart(object sender, EventArgs e)
+        {
+            using (var muusika = new SoundPlayer(@"..\..\ashot.wav"))
+            {
+                muusika.Play();
+            }
+        }
 
         private void Click(object sender, EventArgs e) //ikooni kuvamiseks
         {

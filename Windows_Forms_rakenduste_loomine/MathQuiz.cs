@@ -189,7 +189,7 @@ namespace Windows_Forms_rakenduste_loomine
             };
             timer1 = new Timer
             {
-                Interval = 10
+                Interval = 1000
             };
 
             //kõigi siltide, nuppude jms kuvamine laual
