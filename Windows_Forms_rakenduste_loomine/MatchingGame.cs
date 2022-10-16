@@ -28,7 +28,7 @@ namespace Windows_Forms_rakenduste_loomine
             CenterToScreen();
             timer1.Tick += Tick;
             Text = "Matching game";
-            ClientSize = new Size(1200, 550);
+            ClientSize = new Size(550, 550);
             table = new TableLayoutPanel
             {
                 BackColor = Color.White,
@@ -41,14 +41,15 @@ namespace Windows_Forms_rakenduste_loomine
             this.Controls.Add(table);
             for (int i = 0; i < 4; i++)
             {
-                table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-                table.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+                table.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+                table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
                 for (int j = 0; j < 4; j++)
                 {
 
                     Label lbl = new Label
                     {
                         BackColor = Color.LightCyan,
+                        Size = new Size(100, 100),
                         AutoSize = false,
                         Dock = DockStyle.Fill,
                         TextAlign = ContentAlignment.MiddleCenter,
