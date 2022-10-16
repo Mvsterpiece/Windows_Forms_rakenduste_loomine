@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Media;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,8 +17,10 @@ namespace Windows_Forms_rakenduste_loomine
         TableLayoutPanel table;
         Label firstClicked = null;
         Label secondClicked = null;
+        Label lblTimer;
         Timer timer1 = new Timer { Interval = 750 };
         private Button music;
+        int counter = 1;
         List<string> icons = new List<string>() //väärtuste loend, mis ilmuvad hiljem
         {
             "m", "m", "k", "k", "N", "N", "t", "t",
@@ -74,7 +77,16 @@ namespace Windows_Forms_rakenduste_loomine
                 iconLabel.Click += Click;
             }
 
-
+            lblTimer = new Label //sildi loomine, milles kuvatakse taimerit, on sildil algselt enne alusta nupu vajutamist tekst "--:--:--"
+            {
+                AutoSize = true,
+                Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Italic, GraphicsUnit.Point, 200),
+                Name = "lblAnswer",
+                Size = new Size(50, 15),
+                TabIndex = 5,
+                Text = "--:--:--",
+            };
+            table.Controls.Add(lblTimer, 1, 4);
 
             music = new Button //taimeri nupu loomine, vajutamisel kuvatakse näited ja algab aja lugemine
             {
@@ -124,7 +136,12 @@ namespace Windows_Forms_rakenduste_loomine
         }
         private void Tick(object sender, EventArgs e) //taimeri funktsioon
         {
-
+            timer1.Start();
+            if (counter > 0)
+            {
+                counter = counter + 1;
+                lblTimer.Text = counter + " sammu";
+            }
             if (firstClicked.Text == secondClicked.Text)
             {
                 firstClicked.ForeColor = firstClicked.ForeColor;
