@@ -22,11 +22,10 @@ namespace Windows_Forms_rakenduste_loomine
         private Label lblScore;
         private Label lblTimer, lblSym1, lblSym2, lblSym3, lblSym4, lblNumB1, lblNumB2, lblNumB3, lblNumB4, lblE1, lblE2, lblE3, lblE4, lblAnswer, lblNumA1, lblNumA2, lblNumA3, lblNumA4;
         private TextBox Answer1, Answer2, Answer3, Answer4;
-        private Button button1, buttonTimer;
+        private Button button1, buttonTimer, kalkulaator;
         Label[] labelSymArray = { }, lblNumArrayA = { }, lblNumArrayB = { }, lblEqualsArray = { };
         TextBox[] AnswerArray = { };
         int[] totalArray = { };
-        Bitmap Image;
 
         TableLayoutPanel table;
 
@@ -192,6 +191,18 @@ namespace Windows_Forms_rakenduste_loomine
                 Interval = 1000
             };
 
+            kalkulaator = new Button
+            {
+                AutoSize = true,
+                ForeColor = Color.IndianRed,
+                Location = new Point(10, 10),
+                Size = new Size(50, 15),
+                TabIndex = 0,
+                Text = "Kalkulaator",
+            };
+            kalkulaator.Click += Kalc_Click;
+
+
             //kõigi siltide, nuppude jms kuvamine laual
 
             Controls.Add(table);
@@ -228,6 +239,7 @@ namespace Windows_Forms_rakenduste_loomine
             table.Controls.Add(button1, 4, 4);
             table.Controls.Add(buttonTimer, 4, 5);
             table.Controls.Add(lblTimer);
+            table.Controls.Add(kalkulaator);
         }
        
 
@@ -326,6 +338,11 @@ namespace Windows_Forms_rakenduste_loomine
             correct = 0;
         }
 
+        private void Kalc_Click(object sender, EventArgs e)
+        {
+            Process.Start("calc");
+        }
+
         private void Game() //funktsioon mängu alustamiseks, mis alguses määrab juhuslikud numbrid ja ka märgid
         {
             for (int ii = 0; ii < 4; ii++)
@@ -367,6 +384,5 @@ namespace Windows_Forms_rakenduste_loomine
 
             }
         }
-
     }
 }

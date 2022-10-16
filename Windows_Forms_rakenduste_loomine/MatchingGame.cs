@@ -102,7 +102,7 @@ namespace Windows_Forms_rakenduste_loomine
             table.Controls.Add(music, 0, 4);
         }
 
-        private void MusicStart(object sender, EventArgs e)
+        private void MusicStart(object sender, EventArgs e) //funktsioon mis alustab muusika nuppude vajude
         {
             using (var muusika = new SoundPlayer(@"..\..\ashot.wav"))
             {
