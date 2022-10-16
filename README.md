@@ -3,6 +3,7 @@
 1)Kui sa lopetas mängi siis mängib mingi "sound"<br>
 2)Lõpus saab valida veel kord mängida või suleda.<br>
 3)Allal on nupp mis saab alustada muusika, kui pole igav mangida.<br>
+4)Loeb teie sammu kui palju sa teed.<br>
 
 <h3>Pildi vaatamine</h3><br>
 1)On nupp mis muudab pictureBox laius.<br>
