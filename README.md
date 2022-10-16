@@ -8,7 +8,7 @@
 1)On nupp mis muudab pictureBox laius.<br>
 2)Võib muuda pildi inverteerida<br>
 3)Pildi saab pöörduda<br>
-4)Peav valida kausti ja siis tuleb SlideShow<br>
+4)Peab valida kausti ja siis tuleb SlideShow<br>
 
 <h3>MathQuiz</h3><br>
 1)Kui aega mäng on läbi<br>
