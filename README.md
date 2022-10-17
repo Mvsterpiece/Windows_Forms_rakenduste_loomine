@@ -12,7 +12,7 @@
 4)Peab valida kausti ja siis tuleb SlideShow<br>
 
 <h3>MathQuiz</h3><br>
-1)Kui aega mäng on läbi<br>
+1)Kui aega mäng on läbi mängib "sound".<br>
 2)On valik veel kord mängida või suleda programmi.<br>
 3)Õigesti vastatud 4 näite punktid loetakse numbrite alla.<br>
 4)Kui vajutab nuppu siis avab kalkulaator.<br>
